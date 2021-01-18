@@ -1,0 +1,53 @@
+
+
+<div>
+    <div class=" wrapper">
+        <div class="page-header header-filter">
+          
+          <div class="container">
+            <div class="content-center brand">
+              <h1 class="h1-seo">Diko•</h1>
+              <h3>
+                Le dictionnaire d'associations lexicales
+                contributif et libre de JeuxDeMots
+              </h3>
+              <form class="col s12" (submit)="formSubmit()">
+              <div class="row">
+                <div class="col-md-10">
+                  <input
+                  [(ngModel)]="mot" id="mot"  name="mot" 
+                  class="form-control"
+                  placeholder="Entrer un mot  "
+                  type="text"
+                />
+                <span class="helper-text red-text">{{ errorText }}</span>
+                
+                
+                </div>
+              </div>
+            </form>
+      
+            </div>
+            
+          </div>
+
+        </div>
+        
+
+        <!-- Create Ramification component and insert it here
+          <div class="row">
+                <app-ramification [ word]= "word"></app-ramification>
+          </div>
+        -->
+
+    </div>
+
+</div>
+<app-data [defs]="defs"></app-data>
+
+<!-- <app-preloader *ngIf="loading"></app-preloader> -->
+
+<!-- <app-notfound *ngIf="notFound"></app-notfound>
+
+<app-team-list [squads]="squads"></app-team-list> -->
+

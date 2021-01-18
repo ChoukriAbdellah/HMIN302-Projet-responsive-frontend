@@ -1,0 +1,51 @@
+<div class="section section-tabs">
+    <div class="container">
+        <div class="title"><h3 class="mb-3">Ramification sémantique</h3></div>
+
+        
+        <div class="row">
+            <span class="badge badge-default mr-1"> Default </span>
+            <span class="badge badge-primary mr-1"> Primary </span>
+            <span class="badge badge-success mr-1"> Success </span>
+            <span class="badge badge-info mr-1"> Info </span>
+            <span class="badge badge-warning mr-1"> Warning </span>
+            <span class="badge badge-danger mr-1"> Danger </span>
+            <span class="badge badge-neutral"> Neutral </span>
+        </div>
+        <div class="title"><h3 class="mb-3">Ramification Morphologique</h3></div>
+        <div class="row">
+            <div class="col-md-8">
+              <button class="btn btn-link mr-1">Default</button>
+              <button class="btn btn-link btn-primary mr-1">Primary</button>
+              <button class="btn btn-link btn-info mr-1">Info</button>
+              <button class="btn btn-link btn-success mr-1">Success</button>
+              <button class="btn btn-link btn-warning mr-1">Warning</button>
+              <button class="btn btn-link btn-danger">Danger</button>
+            </div>
+          </div>
+      <div   class="title"><h3 class="mb-3">Définitions</h3></div>
+      
+      <ng-container [ngSwitch]="sequenceSelected" *ngIf="defs.length > 0">
+        
+        
+        <div  
+          *ngSwitchCase="'STAGGER'"
+          @fadeGrowStagger
+          (@fadeGrowStagger.done)="animationDone()"
+        >
+        <div *ngFor="let definition of defs" >
+          <app-definition [definition]="definition"></app-definition>
+          
+        </div>        
+      </div>
+        
+      </ng-container>
+      
+      <!-- <div *ngFor="let definition of defs" >
+        <app-definition [definition]="definition"></app-definition>
+        
+      </div> -->
+    </div>
+  </div>
+
+ 
