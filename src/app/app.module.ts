@@ -30,6 +30,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { DataComponent } from './data/data.component';
 import { HomeComponent } from './home/home.component';
 import { DefinitionComponent } from './definition/definition.component';
+import { RamificationComponent } from './ramification/ramification.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { DefinitionComponent } from './definition/definition.component';
     LoadingComponent,
     DataComponent,
     HomeComponent,
-    DefinitionComponent
+    DefinitionComponent,
+    RamificationComponent
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,

@@ -14,8 +14,8 @@ export class DataService {
 
 
   constructor(private httpClient: HttpClient ) { }
-loadData(word : string): Observable<any> {
-    return this.httpClient.get<any>('http://localhost:3000/getData/?word='+word,{
+loadData(word : string): Observable<IData> {
+    return this.httpClient.get<IData>('http://localhost:3000/getData/?word='+word,{
  
     })
    

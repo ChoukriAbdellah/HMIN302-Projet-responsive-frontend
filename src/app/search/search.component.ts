@@ -9,23 +9,24 @@ import { IData } from '../shared/IData';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  mot = '';
-  search ='';
-  defs = []  ;
+  mot = ''
+  search =''
+  defs = []  
+  ramifications= []
   notFound = false;
     constructor(private dataService: DataService,) {}
    
     ngOnInit() {
       var body = document.getElementsByTagName("body")[0];
-      body.classList.add("index-page");
+      body.classList.add("index-page")
       
       
     }
     formSubmit() {
       this.notFound = false;
-      this.defs=[];
-      
-        console.log("mot en entré :  "+ this.mot);
+      this.defs=[]
+      this.ramifications= []
+        console.log("mot en entré :  "+ this.mot)
         
         
         
@@ -33,7 +34,8 @@ export class SearchComponent implements OnInit {
             
   
             if(resultat.status != 404){
-              this.defs= resultat.defs;        
+              this.defs= resultat.defs
+              this.ramifications= resultat.ramifications  
             }
           else{
             alert('Aucun résultat pour cette recherche.');

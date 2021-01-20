@@ -19,6 +19,7 @@ export class DataComponent implements OnInit {
   
   
   @Input() defs : String[];
+  @Input() ramifications : String[];
   sequenceSelected: TSequence = 'STAGGER';
   sequenceChangeQueued: TSequence = 'STAGGER';
 
