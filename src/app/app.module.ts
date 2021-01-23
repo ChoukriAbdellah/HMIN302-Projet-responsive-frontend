@@ -31,6 +31,10 @@ import { DataComponent } from './data/data.component';
 import { HomeComponent } from './home/home.component';
 import { DefinitionComponent } from './definition/definition.component';
 import { RamificationComponent } from './ramification/ramification.component';
+import { RelationComponent } from './relation/relation.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { BrowserModule } from '@angular/platform-browser';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +45,8 @@ import { RamificationComponent } from './ramification/ramification.component';
     DataComponent,
     HomeComponent,
     DefinitionComponent,
-    RamificationComponent
+    RamificationComponent,
+    RelationComponent
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,
@@ -53,6 +58,8 @@ import { RamificationComponent } from './ramification/ramification.component';
     HttpClientModule,
     RouterModule,
     AppRoutingModule,
+     BrowserModule,
+    ScrollingModule,
     // BsDropdownModule.forRoot(),
     // ProgressbarModule.forRoot(),
     // TooltipModule.forRoot(),

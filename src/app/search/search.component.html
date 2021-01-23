@@ -11,20 +11,32 @@
                 Le dictionnaire d'associations lexicales
                 contributif et libre de JeuxDeMots
               </h3>
+
               <form class="col s12" (submit)="formSubmit()">
-              <div class="row">
-                <div class="col-md-10">
-                  <input
+                <div class="form-row">
+                  <div class="col">
+                    
+                    <select class="form-control" id="exampleFormControlSelect1">
+                      <option>Relation</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                   
+                  </div>
+                  <div class="col">
+                   
+                    <input
                   [(ngModel)]="mot" id="mot"  name="mot" 
                   class="form-control"
                   placeholder="Entrer un mot  "
                   type="text"
                 />
                 <span class="helper-text red-text">{{ errorText }}</span>
-                
-                
-                </div>
-              </div>
+                  </div>
+                </div> 
+             
             </form>
       
             </div>

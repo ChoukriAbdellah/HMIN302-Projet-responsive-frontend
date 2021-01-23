@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import noUiSlider from "nouislider";
 import {IData} from '../shared/IData'
+
 import {
   FadeGrowSequence,
   FadeGrowGroup,

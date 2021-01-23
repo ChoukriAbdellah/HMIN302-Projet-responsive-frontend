@@ -8,7 +8,7 @@ import {
     group,
     stagger,
   } from '@angular/animations';
-  
+ 
   const ExitStyle = { opacity: 0, transform: 'scale(0.8)' };
   const EnterStyle = { opacity: 1, transform: 'scale(1)' };
   

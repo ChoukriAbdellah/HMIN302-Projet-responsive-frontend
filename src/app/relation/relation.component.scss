@@ -1,0 +1,7 @@
+.list-container{
+    height: 250px;
+    width: 500px;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}
