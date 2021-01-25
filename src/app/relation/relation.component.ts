@@ -1,5 +1,6 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, Input, OnInit,ViewChild } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { INodeCouple } from '../shared/INodeCouple';
 @Component({
   selector: 'app-relation',
   templateUrl: './relation.component.html',
@@ -9,23 +10,22 @@ export class RelationComponent implements OnInit {
 
   @ViewChild(CdkVirtualScrollViewport)
   viewport: CdkVirtualScrollViewport;
-
-  personas = Array(500).fill(0);
+  @Input() index: number
+  @Input() list: []
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.personas);
+    
     
   }
 cambio(){
   const total=this.viewport.measureScrollOffset();
-  console.log("total",total)
+  
   const posicion = this.viewport.getRenderedRange().start;
-  console.log(posicion)
-  console.log("personas " ,this.personas.length)
-  if((posicion>this.personas.length/2)&&(posicion<this.personas.length/2+10)){
+  
+  if((posicion>this.list.length/2)&&(posicion<this.list.length/2+10)){
 alert("has llegado casi a la mitad");
-this.personas = Array(800).fill(0);
+//this.list = Array(800).fill(0);
   }
 }
 

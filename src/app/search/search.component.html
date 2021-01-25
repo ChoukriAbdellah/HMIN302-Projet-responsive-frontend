@@ -56,7 +56,24 @@
 
 </div>
 
-<app-data [defs]="defs" [ramifications]="ramifications"></app-data>
+ 
+
+<app-data [defs]="defs" [ramifications]="ramifications" ></app-data>
+  
+  
+<div class="container">
+  <h1 class="title mb-5">Relations</h1>
+  <div class="row" id="modals">
+    <ng-container *ngFor="let group of relation_node_couple">
+      <div class="col-md-4">
+        <app-relation  [index]="1" [list]="group"></app-relation>
+      </div>
+    </ng-container>
+  </div>
+  
+</div> 
+
+
 
 <!-- <app-preloader *ngIf="loading"></app-preloader> -->
 

@@ -1,16 +1,16 @@
-<h2>Relations</h2>
+<h2>Relations {{ index }}</h2>
 <hr>
 <cdk-virtual-scroll-viewport (scrolledIndexChange)="cambio()" itemSize="10" class="list-container"
 
 style="height: 190px; width: 290px;  " >
-<div *cdkVirtualFor="let personas of personas; let i=index,let conteo=count">
+<div *cdkVirtualFor="let p of list; let i=index,let conteo=count">
   <div id="test" class="col-md-4">
     <button
       class="btn btn-warning"
       data-target="#myModal1"
       (click)="myModal1.show()"
     >
-      item {{ i}}
+       {{ p}}
     </button>
   </div>
 </div>

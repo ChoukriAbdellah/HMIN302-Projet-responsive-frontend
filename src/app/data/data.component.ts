@@ -24,7 +24,8 @@ export class DataComponent implements OnInit {
   sequenceSelected: TSequence = 'STAGGER';
   sequenceChangeQueued: TSequence = 'STAGGER';
 
-  constructor() {}
+  constructor() {
+  }
   scrollToDownload(element: any) {
     element.scrollIntoView({ behavior: "smooth" });
   }
