@@ -12,23 +12,22 @@
                 contributif et libre de JeuxDeMots
               </h3>
 
-              <form class="col s12" (submit)="formSubmit()">
+              <form class="col s12" (submit)="formSubmit();">
                 <div class="form-row">
-                  <div class="col">
+                  <div *ngIf="relation_node_couple.length > 0" class="col">
                     
-                    <select class="form-control" id="exampleFormControlSelect1">
-                      <option>Relation</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                    
+                    <select class="form-control" (change)="filterData($event.target.value)" matNativeControl [(ngModel)]="relation" name="relation">
+                      <option value="" selected></option>
+                      <option *ngFor="let type of allRelationships;let indexOfelement=index;" [value]="indexOfelement">
+                        {{type}}
+                      </option>
                     </select>
-                   
                   </div>
                   <div class="col">
-                   
+                    
                     <input
-                  [(ngModel)]="mot" id="mot"  name="mot" 
+                  [(ngModel)]="search" id="search"  name="search" 
                   class="form-control"
                   placeholder="Entrer un mot  "
                   type="text"
@@ -45,28 +44,33 @@
 
         </div>
         
-
-        <!-- Create Ramification component and insert it here
-          <div class="row">
-                <app-ramification [ word]= "word"></app-ramification>
-          </div>
-        -->
-
     </div>
-
+    
 </div>
 
- 
 
 <app-data [defs]="defs" [ramifications]="ramifications" ></app-data>
   
+<div *ngIf="filter" class="container">
+  <h1 class="title mb-3">Relations</h1>
+  <div class="row" id="modals">
+    <ng-container >
+      <div class="col-md-2">
+        <app-relation  [index]="getRelationTypeByIndex(relation)" [list]="filtered_data"></app-relation>
+        
+      </div>
+    </ng-container>
+  </div>
   
-<div class="container">
+</div> 
+
+<div *ngIf="relation_node_couple.length > 0 && !filter " class="container">
   <h1 class="title mb-5">Relations</h1>
   <div class="row" id="modals">
-    <ng-container *ngFor="let group of relation_node_couple">
+    <ng-container *ngFor="let group of relation_node_couple;let indexOfelement=index;">
       <div class="col-md-4">
-        <app-relation  [index]="1" [list]="group"></app-relation>
+        <app-relation  [index]="getRelationTypeByIndex(indexOfelement)" [list]="group"></app-relation>
+        
       </div>
     </ng-container>
   </div>

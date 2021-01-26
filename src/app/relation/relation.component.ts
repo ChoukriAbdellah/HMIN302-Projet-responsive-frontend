@@ -23,10 +23,7 @@ cambio(){
   
   const posicion = this.viewport.getRenderedRange().start;
   
-  if((posicion>this.list.length/2)&&(posicion<this.list.length/2+10)){
-alert("has llegado casi a la mitad");
-//this.list = Array(800).fill(0);
-  }
+  
 }
 
 }
