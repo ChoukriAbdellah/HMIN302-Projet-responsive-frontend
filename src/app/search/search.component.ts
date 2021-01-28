@@ -37,13 +37,16 @@ export class SearchComponent implements OnInit {
         this.filter=true
         var i: number = +value;
         this.filtered_data= this.relation_node_couple[i]
+        this.scroll("relation")
       }
       else{
         this.filter=false
       }
+      
     }
     //
     formSubmit() {
+      
       this.notFound = false;
       this.defs=[]
       this.ramifications= []
@@ -56,6 +59,7 @@ export class SearchComponent implements OnInit {
               this.ramifications= result.ramifications
               this.relations_types = result.relations_types
               this.filterData(AllRelationsTypes[this.relation])
+              this.scroll("data")
               for(let i of result.relations_types){
                 this.relation_node_couple.push(result.relation_node_couple[i])
                 
@@ -78,6 +82,10 @@ export class SearchComponent implements OnInit {
       return AllRelationsTypes[index]
       
     }
+  }
+  scroll(id:string) {
+    var body = document.getElementsByTagName("body")[0];
+    document.getElementById(id).scrollIntoView()
   }
   ngOnDestroy() {
       

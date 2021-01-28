@@ -17,7 +17,7 @@
                   <div *ngIf="relation_node_couple.length > 0" class="col">
                     
                     
-                    <select class="form-control" (change)="filterData($event.target.value)" matNativeControl [(ngModel)]="relation" name="relation">
+                    <select class="form-control"  (change)="filterData($event.target.value);" matNativeControl [(ngModel)]="relation" name="relation">
                       <option value="" selected></option>
                       <option *ngFor="let type of allRelationships;let indexOfelement=index;" [value]="indexOfelement">
                         {{type}}
@@ -49,9 +49,9 @@
 </div>
 
 
-<app-data [defs]="defs" [ramifications]="ramifications" ></app-data>
-  
-<div *ngIf="filter" class="container">
+<app-data id="data" [defs]="defs" [ramifications]="ramifications" ></app-data>
+<div id="relation">
+<div  *ngIf="filter" class="container">
   <h1 class="title mb-3">Relations</h1>
   <div class="row" id="modals">
     <ng-container >
@@ -63,8 +63,8 @@
   </div>
   
 </div> 
-
-<div *ngIf="relation_node_couple.length > 0 && !filter " class="container">
+</div> 
+<div  *ngIf="relation_node_couple.length > 0 && !filter " class="container">
   <h1 class="title mb-5">Relations</h1>
   <div class="row" id="modals">
     <ng-container *ngFor="let group of relation_node_couple;let indexOfelement=index;">
@@ -76,6 +76,7 @@
   </div>
   
 </div> 
+
 
 
 
