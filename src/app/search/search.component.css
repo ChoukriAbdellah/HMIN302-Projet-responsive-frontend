@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+}
+.ng-autocomplete {
+  width:100%;
+  max-width: 500px;
+  text-decoration: white;
+  border: solid;
+  border-color: burlywood;
+}
+.btn {
+     background-color: #3f51b5;
+      border: none;
+      color: burlywood;
+      padding: 8px 22px;
+      margin: 5px 10px;
+      text-align: center;
+      text-decoration: white;
+      display: inline-block;
+      font-size: 12px;
+      cursor: pointer;
+      outline: none;
+}

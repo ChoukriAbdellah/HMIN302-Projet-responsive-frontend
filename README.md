@@ -1,196 +1,134 @@
-[Blk• Design  System Angular](https://demos.creative-tim.com/blk-design-system-angular) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fcreativetimofficial.github.io%2Fblk-design-system-angular&text=BLK%20Design%20System%20Angular%20-%20Free%20Angular%20Template&original_referer=https%3A%2F%2Fdemos.creative-tim.com%blk-design-system-angular%2F%3F_ga%3D2.234372891.44370326.1533641128-1803433978.1528781151&via=creativetim&hashtags=angular%2Cbootstrap)
+# projet responsive
+
+> Note et explication destinée à **M.LEHIANY**.
+
+![](https://i.imgur.com/evUCU8T.png)
+
+### Architecture et  composants.
+- Backend
+    - Réalisation d'un server en Nodejs permmettant d'assurrer la communication entre le navigateur (partie frontend) et l'API rezo dump mise à notre disposition par **M.Lafourcade**.
+    - Un système de mise en cache pour améliorer les performances
+- Fronend
+    - Utilisation des "services" pour lier le fontend au backend
+        - Data.service.ts
+        ```js 
+        loadData(word : string): Observable<IData> {
+        return this.httpClient.get<IData>
+        ('http://localhost:3000/getData/?word='+word,{
+        })
+          }
+        ```
+        - Une interface IData permettant de décrire le type de donnée attendu 
+         ```js
+         import { INodeCouple } from './INodeCouple'
+
+        export interface IData {
+            status : number ;
+            defs : Array<string>;
+            ramifications : Array<string>;
+            relations_types : Array<string>;
+            relation_node_couple: Array<INodeCouple> ;
+        }
+        ```
+
+    - Composant :
+        - home : composant principale contenant les aux composants 
+        ```html
+        <app-search></app-search>
+        <app-footer></app-footer>
+        ```
+        - search: composant permettant de réaliser une recherche pour un mot donnée avec possibilité de choisir le type de relation. Il transmet ensuite les données décupérées depuis le serveur au composant data qui les affiche. 
+        ```html
+                <app-data 
+                id="data" 
+                [defs]="defs" 
+                [ramifications]="ramifications" >
+                </app-data>
+
+        <div id="relation">
+        <div  *ngIf="filter" class="container">
+          <h1 class="title mb-3">Relations</h1>
+          <div class="row" id="modals">
+            <ng-container >
+              <div class="col-md-2">
+                <app-relation  [index]="getRelationTypeByIndex(relation)"
+                [list]="filtered_data"></app-relation>
+
+              </div>
+            </ng-container>
+          </div>
+
+        </div> 
+        </div> 
+        <div  *ngIf="relation_node_couple.length > 0 
+        && !filter " class="container">
+          <h1 class="title mb-5">Relations</h1>
+          <div class="row" id="modals">
+            <ng-container *ngFor="let group of relation_node_couple;
+            let indexOfelement=index;">
+              <div class="col-md-4">
+                <app-relation  [index]="getRelationTypeByIndex(indexOfelement)"
+                [list]="group"></app-relation>
+
+              </div>
+            </ng-container>
+          </div>
+
+        </div> 
+        ``` 
+        - Data: composant permettant d’afficher les données transmise par le composant Search.
+        - Footer: composant esthétique
+        - NavBar: composant esthétique 
 
 
- ![version](https://img.shields.io/badge/version-1.1.0-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/blk-design-system-angular.svg?maxAge=2592000)](https://github.com/creativetimofficial/blk-design-system-angular/issues?q=is%3Aopen+is%3Aissue) [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/blk-design-system-angular.svg?maxAge=2592000)](https://github.com/creativetimofficial/blk-design-system-angular/issues?q=is%3Aissue+is%3Aclosed) [![Join the chat at https://gitter.im/NIT-dgp/General](https://badges.gitter.im/NIT-dgp/General.svg)](https://gitter.im/creative-tim-general/Lobby) [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/E4aHAQy)
+![](https://i.imgur.com/PNhhs26.png)
+ ####  Architecture mise en place.
+### Explication
+ Lorsqu'un utilisateur fait une recherche à un instant t l'application commence par **vérifier si le mot existe dans le cache** du navigateur (ce cas correspond à une recherche déjà effectuée pour un même mot.). 
+Si c'est le cas alors inutile de refaire une nouvelle recherche, on récupère donc les données directement dans le cache du navigateur.
+Si au contraire, il s'agit qu'une nouvelle entrée (donc absente du cache) alors on **envoie une requête HTTP** au serveur. Ce dernier réagit alors en fonction de l'entrée récupérée. Toujours pour des raisons d'optimisation, il commence par **vérifier si les données pour cette entrée existent dans le cache**. Si c'est le cas alors il **renvoi les données sous forme JSON au client**. Au contraire, si le cache ne contient aucune donnée liée à cette entrée alors il **envoie une requete à l'API rezo-dump** pour récupérer les données. Il **enregistre cette nouvelle donnée dans le cache** avant de la **renvoyer au client.** Le client n'a plus qu'a **récupérer et afficher cette donnée.**
+
+### Différentes diffultées rencontrées et solutions  adpotées pour les résoudre
+
+- Probleme de parsing lié au données recoltées depuis rezo-dump
+ Le premier problème que j'ai rencontré lors du déveleoppement de mon applicaion était lié à la récolte de données. En effet les données renvoyées par dezo-dump demande un traitement afin de pouvoir les utiliser. Parmis les diffèrents traitements on peut citer:
+     - Filtrer les données pour garder que celles qui sont pertinentes
+     - Utilisation des expression régulières pour recherche des ramifications
+    - traduction des données en latin avant  de les transformer en utf8
+- Affichage des données dans le front trop volumineux
+
+    - utilisation du module ng-scroll dans angular permettant l'affichage des données page par page en fonction que l'utilisation scroll cette dernière.   
+- Mise en relation des données
+    - Utilisation de HashMap afin de déterminer les relations entre les diffèrent noeuds.
+
+- Mise en place de l'au complémtion 
+    - Utilisation du module DemoMaterialModule permettant de gérer l'auto complémtion. 
 
 
-![Product Presentation Image](https://github.com/creativetimofficial/public-assets/blob/master/blk-design-system-angular/opt_blk_angular_thumbnail.jpg?raw=true)
+- Problème de parsing lié aux données récoltées depuis rezo-dump
+Le premier problème que j'ai rencontré lors du développement de mon application était lié à la récolte de données. En effet les données renvoyées par dezo-dump demande un traitement afin de pouvoir les utiliser. Parmi les différents traitements on peut citer :
+    - Filtrer les données pour garder que celles qui sont pertinentes
+    - Utilisation des expressions régulières pour recherche des ramifications
+    - traduction des données en latin avant de les transformer en utf8
+- Affichage des données dans le front trop volumineux
 
-**[Blk• Design  System Angular](http://demos.creative-tim.com/blk-design-system-angular/)** is a responsive Bootstrap 4 kit, developed using [Angular](https://angular.io/) and it is provided for free by Creative Tim. It is a beautiful cross-platform UI kit featuring over 70 elements and 3 templates.
+    - utilisation du module ng-scroll dans angular permettant l'affichage des données page par page en fonction que l'utilisation scroll cette dernière. 
+- Mise en relation des données
+    - Utilisation de HashMap afin de déterminer les relations entre les diffèrent noeuds.
 
-Blk• Design  System Angular will help you create a clean and simple website that is a perfect fit for today's black design. It is built using the 12 column grid system, with components designed to fit together perfectly. It makes use of bold colours, beautiful typography, clear photography and spacious arrangements.
-
-## Complex Documentation
-
-Each element is well presented in a very complex documentation. You can read more about the idea behind this design system here. You can check the components here and the foundation here.
-
-## Bootstrap 4 Support
-
-Blk• Design System Angular is built on top of the much awaited Bootstrap 4 and Angular. This makes starting a new project very simple. It also provides benefits if you are already working on a Bootstrap 4 or Angular project; you can just import the Blk• Design System Angular style over it. Most of the elements have been redesigned; but if you are using an element we have not touched, it will fall back to the Bootstrap default.
-
-
-## Table of Contents
-
-* [Versions](#versions)
-* [Demo](#demo)
-* [Quick Start](#quick-start)
-* [Documentation](#documentation)
-* [File Structure](#file-structure)
-* [Browser Support](#browser-support)
-* [Resources](#resources)
-* [Reporting Issues](#reporting-issues)
-* [Licensing](#licensing)
-* [Useful Links](#useful-links)
-
-
-## Versions
-
-[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/html-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/blk-design-system?ref=blkdsa-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/react-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/blk-design-system-react?ref=blkdsa-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/angular-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/blk-design-system-angular?ref=blkdsa-readme)[<img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/sketch-logo.jpg" width="60" height="60" />](https://github.com/creativetimofficial/blk-design-system-sketch/tree/sketch)
-
-
-
-
-
-
-| HTML | Angular | React |
-| --- | --- | --- |
-| [![BLK Design System  HTML](https://github.com/creativetimofficial/public-assets/blob/master/blk-design-system/opt_blk_thumbnail.jpg?raw=true)](https://www.creative-tim.com/product/blk-design-system)  | [![BLK Design System  Angular](https://github.com/creativetimofficial/public-assets/blob/master/blk-design-system-angular/opt_blk_angular_thumbnail.jpg?raw=true)](https://www.creative-tim.com/product/blk-design-system-angular)| [![BLK Design System  React](https://github.com/creativetimofficial/public-assets/blob/master/blk-design-system-react/blk-design-system-react.jpg?raw=true)](https://www.creative-tim.com/product/blk-design-system-react)
-
-## Demo
-
-| Buttons | Inputs | Navbars  |
-| --- | --- | ---  |
-| [![Buttons](https://github.com/creativetimofficial/public-assets/blob/master/blk-design-system-angular/buttons.png?raw=true)](https://demos.creative-tim.com/blk-design-system-angular/#/)  | [![Inputs](https://github.com/creativetimofficial/public-assets/blob/master/blk-design-system-angular/inputs.png?raw=true)](https://demos.creative-tim.com/blk-design-system-angular/#/)  | [![Navbar](https://github.com/creativetimofficial/public-assets/blob/master/blk-design-system-angular/navbars.png?raw=true)](https://demos.creative-tim.com/blk-design-system-angular/#/)  
-
-| Register Page | Landing Page | Profile Page  |
-| --- | --- | ---  |
-| [![Register Page](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/blk-design-system-angular/register.png)](https://demos.creative-tim.com/blk-design-system-angular/#/register)  | [![Landing Page](https://github.com/creativetimofficial/public-assets/blob/master/blk-design-system-angular/landing.png?raw=true)](https://demos.creative-tim.com/blk-design-system-angular/#/landing)  | [![Profile Page](https://github.com/creativetimofficial/public-assets/blob/master/blk-design-system-angular/profile.png?raw=true)](https://demos.creative-tim.com/blk-design-system-angular/#/profile)  
-
-[View More](https://demos.creative-tim.com/blk-design-system-angular)
-
-
-## Quick start
-
-- `npm i blk-design-system-angular`
-- [Download from Github](https://github.com/creativetimofficial/blk-design-system-angular/archive/master.zip).
-- [Download from Creative Tim](https://www.creative-tim.com/product/blk-design-system-angular).
-- Clone the repo: `git clone https://github.com/creativetimofficial/blk-design-system-angular.git`.
-
-
-## Documentation
-The documentation for the BLK Design System Angular is hosted at our [website](https://demos.creative-tim.com/blk-design-system-angular/#/documentation/overview).
-
-
-## File Structure
-Within the download you'll find the following directories and files:
-
-```
-Blk• Design System Angular
-├── CHANGELOG.md
-├── ISSUE_TEMPLATE.md
-├── LICENSE.md
-├── README.md
-├── angular.json
-├── e2e
-├── package-lock.json
-├── package.json
-├── src
-│   ├── app
-│   │   ├── app-routing.module.ts
-│   │   ├── app.component.html
-│   │   ├── app.component.scss
-│   │   ├── app.component.spec.ts
-│   │   ├── app.component.ts
-│   │   ├── app.module.ts
-│   │   └── pages
-│   │       ├── examples
-│   │       │   ├── landingpage
-│   │       │   │   ├── landingpage.component.html
-│   │       │   │   └── landingpage.component.ts
-│   │       │   ├── profilepage
-│   │       │   │   ├── profilepage.component.html
-│   │       │   │   └── profilepage.component.ts
-│   │       │   └── registerpage
-│   │       │       ├── registerpage.component.html
-│   │       │       └── registerpage.component.ts
-│   │       ├── index
-│   │       │   ├── index.component.html
-│   │       │   └── index.component.ts
-│   │       └── pages.module.ts
-│   ├── assets
-│   │   ├── css
-│   │   │   └── nucleo-icons.css
-│   │   ├── demo
-│   │   ├── fonts
-│   │   ├── img
-│   │   └── scss
-│   │       ├── blk-design-system
-│   │       │   ├── angular
-│   │       │   ├── bootstrap
-│   │       │   └── custom
-│   │       └── blk-design-system.scss
-│   ├── browserslist
-│   ├── environments
-│   ├── favicon.ico
-│   ├── index.html
-│   ├── karma.conf.js
-│   ├── main.ts
-│   ├── polyfills.ts
-│   ├── styles.scss
-│   ├── test.ts
-│   ├── tsconfig.app.json
-│   ├── tsconfig.spec.json
-│   └── tslint.json
-├── tsconfig.json
-└── tslint.json
-```
-
-
-## Browser Support
-
-At present, we officially aim to support the last two versions of the following browsers:
-
-<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/chrome-logo.png?raw=true" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/firefox-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/edge-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/safari-logo.png" width="64" height="64"> <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/opera-logo.png" width="64" height="64">
+- Mise en place de l'auto-complétion 
+    - Utilisation du module DemoMaterialModule permettant de gérer l'auto complétion. 
 
 
 
-## Resources
-- Demo: <https://demos.creative-tim.com/blk-design-system-angular/#/>
-- Download Page: <https://www.creative-tim.com/product/blk-design-system-angular>
-- Documentation: <https://demos.creative-tim.com/blk-design-system-angular/#/documentation/overview>
-- License Agreement: <https://www.creative-tim.com/license>
-- Support: <https://www.creative-tim.com/contact-us>
-- Issues: [Github Issues Page](https://github.com/creativetimofficial/blk-design-system-angular/issues)
-- **Dashboards:**
+## Remerciements
+Je tiens à remercier  M.Lafourcade, pour son accompagnement et ses conseils précieux au cours de ce projet qui m'ont permis de le porter à son état actuel.
 
-| HTML | Angular | Vue  | React  |
-| --- | --- | ---  | ---  |
-| [![Black Dashboard  HTML](https://github.com/creativetimofficial/public-assets/blob/master/black-dashboard/black-dashboard.jpg?raw=true)](https://www.creative-tim.com/product/black-dashboard) | [![Black Dashboard  Angular](https://github.com/creativetimofficial/public-assets/blob/master/black-dashboard-angular/opt_bd_angular_thumbnail.jpg?raw=true)](https://www.creative-tim.com/product/black-dashboard-angular) | [![Vue Black Dashboard](https://github.com/creativetimofficial/public-assets/blob/master/vue-black-dashboard/vue-black-dashboard.jpg?raw=true)](https://www.creative-tim.com/product/vue-black-dashboard)  | [![Black Dashboard React](https://github.com/creativetimofficial/public-assets/blob/master/black-dashboard-react/black-dashboard-react.jpg?raw=true)](https://www.creative-tim.com/product/black-dashboard-react)  |
+##  Références
+[Git Backend](https://github.com/ChoukriAbdellah/HMIN302-Projet-responsive/tree/main)
+[Template utilisé ](https://demos.creative-tim.com/blk-design-system-angular/#/home)
+[API rezo-dump](http://www.jeuxdemots.org/rezo-dump.php)
 
-## Reporting Issues
+## Démo
+![](https://i.imgur.com/NspSzkC.gif)
 
-We use GitHub Issues as the official bug tracker for the BLK Design System Angular. Here are some advices for our users that want to report an issue:
-
-1. Make sure that you are using the latest version of the BLK Design System Angular. Check the CHANGELOG from your dashboard on our [website](https://www.creative-tim.com/?ref=blkdsa-readme).
-2. Providing us reproducible steps for the issue will shorten the time it takes for it to be fixed.
-3. Some issues may be browser specific, so specifying in what browser you encountered the issue might help.
-
-## Licensing
-
-- Copyright 2018 Creative Tim (https://www.creative-tim.com/?ref=blkdsa-readme)
-
-- Licensed under MIT (https://github.com/creativetimofficial/blk-design-system-angular/blob/master/LICENSE.md)
-
-## Useful Links
-
-- [Tutorials](https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w)
-- [Affiliate Program](https://www.creative-tim.com/affiliates/new?ref=blkdsa-github-readme) (earn money)
-- [Blog Creative Tim](http://blog.creative-tim.com/)
-- [Free Products](https://www.creative-tim.com/bootstrap-themes/free?ref=blkdsa-github-readme) from Creative Tim
-- [Premium Products](https://www.creative-tim.com/bootstrap-themes/premium?ref=blkdsa-github-readme) from Creative Tim
-- [Angular Products](https://www.creative-tim.com/bootstrap-themes/react-themes?ref=blkdsa-github-readme) from Creative Tim
-- [Angular Products](https://www.creative-tim.com/bootstrap-themes/angular-theme?ref=blkdsa-github-readme) from Creative Tim
-- [VueJS Products](https://www.creative-tim.com/bootstrap-themes/vuejs-themes?ref=blkdsa-github-readme) from Creative Tim
-- [More products](https://www.creative-tim.com/bootstrap-themes?ref=blkdsa-github-readme) from Creative Tim
-- Check our Bundles [here](https://www.creative-tim.com/bundles?ref=blkdsa-github-readme)
-
-### Social Media
-
-Twitter: <https://twitter.com/CreativeTim>
-
-Facebook: <https://www.facebook.com/CreativeTim>
-
-Dribbble: <https://dribbble.com/creativetim>
-
-Instagram: <https://www.instagram.com/CreativeTimOfficial>
-# HMIN302-Projet-responsive-frontend

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../shared/data.service';
 import { AllRelationsTypes } from '../shared/allRelationsTypes';
 
-
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
   search = ''
@@ -21,15 +21,41 @@ export class SearchComponent implements OnInit {
   current_index= 0 
   notFound = false
   filter=false
-    constructor(private dataService: DataService,) {
-      //this.filtered_data=[]
+
+  //testing
+  name = '';
+  /**
+   * Form
+   */
+ 
+
+
+  public placeholder: string = 'Enter the Country Name';
+  public keyword = 'name';
+  public historyHeading: string = 'Recently selected';
+
+  public countriesTemplate = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus',
+    'Belgium', 'Bosnia & Herzegovina', 'Bulgaria', 'Croatia', 'Cyprus',
+    'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France', 'Georgia',
+    'Germany', 'Greece', 'Hungary', 'Iceland', 'India', 'Ireland', 'Italy', 'Kosovo',
+    'Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Malta',
+    'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland',
+    'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia',
+    'Spain', 'Sweden', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom', 'Vatican City'];
+  //
+   
+    constructor(private dataService: DataService,private _fb: FormBuilder) {
+     
     }
-   
-   
+    submitTemplateForm(value) {
+      console.log(value);
+    }
+  
     ngOnInit() {
       var body = document.getElementsByTagName("body")[0];
       body.classList.add("index-page")
       this.current_type=''
+     
     }
     //
     filterData(value:string) {

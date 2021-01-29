@@ -1,11 +1,13 @@
 
 
 <div>
+  
     <div class=" wrapper">
         <div class="page-header header-filter">
           
           <div class="container">
             <div class="content-center brand">
+              
               <h1 class="h1-seo">Diko•</h1>
               <h3>
                 Le dictionnaire d'associations lexicales
@@ -32,12 +34,14 @@
                   placeholder="Entrer un mot  "
                   type="text"
                 />
+                
+                
                 <span class="helper-text red-text">{{ errorText }}</span>
                   </div>
                 </div> 
              
             </form>
-      
+            
             </div>
             
           </div>
@@ -49,7 +53,42 @@
 </div>
 
 
+<!-- <div class="template-driven-form">
+  <h3> Template Driven Forms</h3>
+  <pre>{{ form.value | json }}</pre>
+  <form #form="ngForm" (ngSubmit)="submitTemplateForm(form.value)">
+    <div class="container">
+      <div class="ng-autocomplete">
+        <ng-autocomplete #ngAutoCompleteStatic
+                         [data]="countriesTemplate"
+                         name="name"
+                         [(ngModel)]="name"
+                         [initialValue]=""
+                         [placeholder]="placeholder"
+                         [searchKeyword]="keyword"
+                         historyIdentifier="countriesTemplateList"
+                         [historyHeading]="historyHeading"
+                         historyListMaxNumber="3"
+                         notFoundText="Not found"
+                         [itemTemplate]="itemTemplateStatic"
+                         [notFoundTemplate]="notFoundTemplate">
+        </ng-autocomplete>
+
+        <ng-template #itemTemplateStatic let-item>
+          <a [innerHTML]="item"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+        </ng-template>
+      </div>
+      <button class="btn" type="submit">Submit</button>
+    </div>
+  </form>
+</div> -->
+
 <app-data id="data" [defs]="defs" [ramifications]="ramifications" ></app-data>
+
 <div id="relation">
 <div  *ngIf="filter" class="container">
   <h1 class="title mb-3">Relations</h1>
@@ -80,9 +119,4 @@
 
 
 
-<!-- <app-preloader *ngIf="loading"></app-preloader> -->
-
-<!-- <app-notfound *ngIf="notFound"></app-notfound>
-
-<app-team-list [squads]="squads"></app-team-list> -->
 
