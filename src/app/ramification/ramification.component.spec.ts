@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RamificationComponent } from './ramification.component';
 
@@ -6,7 +6,7 @@ describe('RamificationComponent', () => {
   let component: RamificationComponent;
   let fixture: ComponentFixture<RamificationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RamificationComponent ]
     })
