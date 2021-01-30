@@ -28,6 +28,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {DemoMaterialModule} from './shared/material-module';
+import { InstructionsComponent } from './instructions/instructions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import {DemoMaterialModule} from './shared/material-module';
     DefinitionComponent,
     RamificationComponent,
     RelationComponent,
+    InstructionsComponent,
     
     // IndexComponent,
     // ProfilepageComponent,

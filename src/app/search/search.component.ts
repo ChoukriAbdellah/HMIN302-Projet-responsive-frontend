@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../shared/data.service';
 import { AllRelationsTypes } from '../shared/allRelationsTypes';
-
+import { keywords } from '../shared/keyWord';
 import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-search',
@@ -30,26 +30,21 @@ export class SearchComponent implements OnInit {
  
 
 
-  public placeholder: string = 'Enter the Country Name';
+  public placeholder: string = 'Entrer un mot ';
   public keyword = 'name';
-  public historyHeading: string = 'Recently selected';
+  public historyHeading: string = 'Récemment sélectionné';
 
-  public countriesTemplate = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus',
-    'Belgium', 'Bosnia & Herzegovina', 'Bulgaria', 'Croatia', 'Cyprus',
-    'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France', 'Georgia',
-    'Germany', 'Greece', 'Hungary', 'Iceland', 'India', 'Ireland', 'Italy', 'Kosovo',
-    'Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Malta',
-    'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland',
-    'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia',
-    'Spain', 'Sweden', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom', 'Vatican City'];
+  public wordsTemplate = keywords;
   //
    
     constructor(private dataService: DataService,private _fb: FormBuilder) {
      
     }
-    submitTemplateForm(value) {
-      console.log(value);
-    }
+    // submitTemplateForm(value) {
+    //   this.search=value;
+    //   console.log("search "+value.name );
+    //   this.formSubmit()
+    // }
   
     ngOnInit() {
       var body = document.getElementsByTagName("body")[0];
@@ -71,8 +66,9 @@ export class SearchComponent implements OnInit {
       
     }
     //
-    formSubmit() {
-      
+    formSubmit(value) {
+      this.search=value.name;
+      console.log("search "+value.name );
       this.notFound = false;
       this.defs=[]
       this.ramifications= []
@@ -90,6 +86,7 @@ export class SearchComponent implements OnInit {
                 this.relation_node_couple.push(result.relation_node_couple[i])
                 
               } 
+              console.log("sucess"+ this.defs)
               
             }
           else{

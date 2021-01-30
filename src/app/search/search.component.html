@@ -1,8 +1,9 @@
 
 
+<app-instructions></app-instructions>
 <div>
   
-    <div class=" wrapper">
+    <div id="search" class=" wrapper">
         <div class="page-header header-filter">
           
           <div class="container">
@@ -14,7 +15,7 @@
                 contributif et libre de JeuxDeMots
               </h3>
 
-              <form class="col s12" (submit)="formSubmit();">
+              <form #form="ngForm" class="col s12" (submit)="formSubmit(form.value);">
                 <div class="form-row">
                   <div *ngIf="relation_node_couple.length > 0" class="col">
                     
@@ -28,13 +29,29 @@
                   </div>
                   <div class="col">
                     
-                    <input
-                  [(ngModel)]="search" id="search"  name="search" 
-                  class="form-control"
-                  placeholder="Entrer un mot  "
-                  type="text"
-                />
-                
+                   
+                  <ng-autocomplete #ngAutoCompleteStatic
+                  [data]="wordsTemplate"
+                  name="name"
+                  [(ngModel)]="name"
+                  [initialValue]=""
+                  [placeholder]="placeholder"
+                  [searchKeyword]="keyword"
+                  historyIdentifier="wordsTemplateList"
+                  [historyHeading]="historyHeading"
+                  historyListMaxNumber="3"
+                  notFoundText="Not found"
+                  [itemTemplate]="itemTemplateStatic"
+                  [notFoundTemplate]="notFoundTemplate">
+                  </ng-autocomplete>
+
+                  <ng-template #itemTemplateStatic let-item>
+                  <a [innerHTML]="item"></a>
+                  </ng-template>
+
+                  <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                  </ng-template>
                 
                 <span class="helper-text red-text">{{ errorText }}</span>
                   </div>
@@ -53,39 +70,6 @@
 </div>
 
 
-<!-- <div class="template-driven-form">
-  <h3> Template Driven Forms</h3>
-  <pre>{{ form.value | json }}</pre>
-  <form #form="ngForm" (ngSubmit)="submitTemplateForm(form.value)">
-    <div class="container">
-      <div class="ng-autocomplete">
-        <ng-autocomplete #ngAutoCompleteStatic
-                         [data]="countriesTemplate"
-                         name="name"
-                         [(ngModel)]="name"
-                         [initialValue]=""
-                         [placeholder]="placeholder"
-                         [searchKeyword]="keyword"
-                         historyIdentifier="countriesTemplateList"
-                         [historyHeading]="historyHeading"
-                         historyListMaxNumber="3"
-                         notFoundText="Not found"
-                         [itemTemplate]="itemTemplateStatic"
-                         [notFoundTemplate]="notFoundTemplate">
-        </ng-autocomplete>
-
-        <ng-template #itemTemplateStatic let-item>
-          <a [innerHTML]="item"></a>
-        </ng-template>
-
-        <ng-template #notFoundTemplate let-notFound>
-          <div [innerHTML]="notFound"></div>
-        </ng-template>
-      </div>
-      <button class="btn" type="submit">Submit</button>
-    </div>
-  </form>
-</div> -->
 
 <app-data id="data" [defs]="defs" [ramifications]="ramifications" ></app-data>
 
