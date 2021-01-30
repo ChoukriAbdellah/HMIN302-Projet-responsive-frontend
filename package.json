@@ -65,7 +65,6 @@
   "homepage": "https://demos.creative-tim.com/blk-design-system-angular/",
   "private": false,
   "dependencies": {
-    "@angular/cli": "^11.1.2",
     "@angular/compiler-cli": "^9.0.6",
     "@angular/animations": "9.0.6",
     "@angular/cdk": "^11.1.1",
