@@ -86,7 +86,7 @@ export class SearchComponent implements OnInit {
                 this.relation_node_couple.push(result.relation_node_couple[i])
                 
               } 
-              console.log("sucess"+ this.defs)
+              
               
             }
           else{
