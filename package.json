@@ -5,6 +5,7 @@
     "heroku-postbuild": "ng build --prod",
     "ng": "ng",
     "start": "node server.js",
+    "start:prod": "node server.js",
     "build": "ng build",
     "description": "BLK Design System Angular: Free Angular Design System For Bootstrap 4 and Angular",
     "test": "ng test",
