@@ -19,4 +19,10 @@
       "dom"
     ]
   }
+  ,
+  // "files": [
+  //   "src/app/shared/route.animation.ts",
+  //   "src/environments/environment.prod.ts"
+  // ]
+  
 }
