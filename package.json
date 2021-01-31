@@ -2,7 +2,6 @@
   "name": "blk-design-system-angular",
   "version": "1.1.0",
   "scripts": {
-    "heroku-postbuild": "ng build --prod",
     "ng": "ng",
     "start": "node server.js",
     "build": "ng build",
@@ -11,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
-    
+    "heroku-postbuild": "ng build --prod"
   },
   "repository": {
     "type": "git",
