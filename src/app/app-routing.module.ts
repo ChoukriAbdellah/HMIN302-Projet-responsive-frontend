@@ -11,12 +11,8 @@ import { HomeComponent } from "./home/home.component";
 
 
 const routes: Routes = [
-  { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: "home", component: IndexComponent },
-  { path: "index", component: HomeComponent },
-  { path: "profile", component: ProfilepageComponent },
-  { path: "register", component: RegisterpageComponent },
-  { path: "landing", component: LandingpageComponent }
+  { path: "", redirectTo: "index", pathMatch: "full" },
+  { path: "index", component: HomeComponent }
 ];
 
 @NgModule({
